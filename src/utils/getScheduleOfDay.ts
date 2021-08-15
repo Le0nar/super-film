@@ -4,7 +4,7 @@ import { formatDate } from "./formatDate";
 
 export const getScheduleOfDay = (date:any) => (dispatch:any) => {
   const formattedDate = formatDate(date);
-  const url = `https://api.tvmaze.com/schedule?date=${formattedDate}`;
+  const url = `https://api.tvmaze.com/schedule?date=${formattedDate}&country=us`;
 
   axios.get(url)
     .then((res: any) => {
