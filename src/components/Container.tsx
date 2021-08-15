@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Route, Switch } from "react-router-dom";
 import { MainScreen } from "./MainScreen";
-import { ScheduleScreen } from "./ScheduleScreen";
+import { ScheduleScreen } from "./ScheduleScreen/ScheduleScreen";
 
 export const Container: FC = () => {
   return (
