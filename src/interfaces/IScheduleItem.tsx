@@ -4,6 +4,7 @@ export interface IScheduleItem {
   name: string;
   season: number;
   number?: number | null;
-  image?: string
-  originalImage?: string
+  image?: string;
+  originalImage?: string;
+  airdate: string;
 }

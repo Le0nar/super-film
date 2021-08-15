@@ -6,19 +6,21 @@ import { ScheduleItem } from "./ScheduleItem";
 
 export const ScheduleScreen: FC = () => {
   const schedule: ISchedule[] = useSelector(selectSchedule);
-  console.log(schedule);
+
   return (
     <div>
-      1+
-      {schedule.map((element) => {
+      ScheduleScreen
+      {schedule.map((element) => (
         <ScheduleItem
           season={element.season}
           number={element.number}
           name={element.name}
           image={element.show.image?.medium}
           originalImage={element.show.image?.original}
-        />;
-      })}
+          airdate={element.airdate}
+          key={element.id}
+        />
+      ))}
     </div>
   );
 };
