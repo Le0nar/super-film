@@ -1,8 +1,9 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { ISchedule } from "../../interfaces/ISchedule";
 import { selectSchedule } from "../../store/selectors";
+import { getLongDate } from "../../utils/getLongDate";
 import { Header } from "../Header";
 import { ScheduleButton } from "./ScheduleButton";
 import { ScheduleItem } from "./ScheduleItem";
@@ -11,6 +12,14 @@ const Container = styled("div")`
   margin: 0 auto;
   max-width: 348px;
 `;
+const TitleWrapper = styled("div")`
+  border-bottom: 1px solid #e9e9e9;
+`;
+const Title = styled("h3")`
+  font-size: 14px;
+  text-align: center;
+  color: #333333;
+`;
 
 export const ScheduleScreen: FC = () => {
   const schedule: ISchedule[] = useSelector(selectSchedule);
@@ -18,14 +27,22 @@ export const ScheduleScreen: FC = () => {
 
   const seriesList = isRolled ? schedule.slice(0, 3) : schedule;
 
-  const date = schedule[0]?.airdate
+  const date = schedule[0]?.airdate;
+
+  const longDate = getLongDate(date);
+
+  const isScheduleEmpty = !schedule[0];
+
+  if (isScheduleEmpty) {
+    return <p>Загрузка...</p>;
+  }
 
   return (
     <Container>
       <Header />
-      <div>
-        <h3>{date}</h3>
-      </div>
+      <TitleWrapper>
+        <Title>{longDate}</Title>
+      </TitleWrapper>
 
       {seriesList.map((element) => (
         <ScheduleItem

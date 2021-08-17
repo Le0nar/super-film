@@ -1,5 +1,24 @@
 import { FC } from "react";
 import { IScheduleButton } from "../../interfaces/IScheduleButton";
+import arrow from "../../images/arrow.png";
+import styled from "styled-components";
+
+const Wrapper = styled("div")`
+  color: #999999;
+  border: 1px solid #999999;
+  margin: 16px auto;
+  padding: 8px 0px 8px 16px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 185px;
+`;
+const StyledImg = styled("img")`
+  width: 16px;
+  padding: 0px 16px;
+`;
 
 export const ScheduleButton: FC<IScheduleButton> = ({
   isRolled,
@@ -7,8 +26,23 @@ export const ScheduleButton: FC<IScheduleButton> = ({
   setIsRolled,
 }) => {
   const additionalQuantity = listLength - 3;
+
   const content = isRolled
     ? `Еще ${additionalQuantity} сериал `
     : "Показать основные ";
-  return <div onClick={() => setIsRolled(!isRolled)}>{content}</div>;
+
+  const arrowImg = (
+    <StyledImg
+      src={arrow}
+      alt="tv"
+      style={{ transform: isRolled ? "" : "rotate(0.5turn)" }}
+    />
+  );
+
+  return (
+    <Wrapper onClick={() => setIsRolled(!isRolled)}>
+      <span>{content}</span>
+      {arrowImg}
+    </Wrapper>
+  );
 };
