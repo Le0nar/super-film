@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
-import { useSelector } from "react-redux";
+import { FC, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { ISchedule } from "../../interfaces/ISchedule";
-import { selectSchedule } from "../../store/selectors";
 import { getLongDate } from "../../utils/getLongDate";
+import { getScheduleOfDay } from "../../utils/getScheduleOfDay";
 import { Header } from "../Header";
 import { ScheduleButton } from "./ScheduleButton";
 import { ScheduleItem } from "./ScheduleItem";
@@ -22,20 +22,28 @@ const Title = styled("h3")`
 `;
 
 export const ScheduleScreen: FC = () => {
-  const schedule: ISchedule[] = useSelector(selectSchedule);
+  const [schedule, setSchedule] = useState<ISchedule[]>([]);
+  const date = localStorage.getItem("date") ?? "";
+  const history = useHistory();
+  const currentDate = new Date(date);
+
+  useEffect(() => {
+    if (date) {
+      getScheduleOfDay(currentDate, setSchedule);
+    } else {
+      history.push("/");
+    }
+  }, []);
+
   const [isRolled, setIsRolled] = useState(true);
 
   const seriesList = isRolled ? schedule.slice(0, 3) : schedule;
 
-  const date = schedule[0]?.airdate;
-
-  const longDate = getLongDate(date);
+  const longDate = getLongDate(currentDate);
 
   const isScheduleEmpty = !schedule[0];
 
-  if (isScheduleEmpty) {
-    return <p>Загрузка...</p>;
-  }
+  if (isScheduleEmpty) return <p>Загрузка...</p>;
 
   return (
     <Container>

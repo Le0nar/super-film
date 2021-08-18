@@ -1,6 +1,5 @@
-export const getLongDate = (date: string) => {
-  const correctDate = new Date(date);
+export const getLongDate = (date: Date) => {
   const options = { year: "numeric", month: "long", day: "numeric" } as const;
 
-  return correctDate.toLocaleDateString("ru-RU", options);
+  return date.toLocaleDateString("ru-RU", options);
 };

@@ -1,10 +1,7 @@
 import { FC } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-
-import { getScheduleOfDay } from "../utils/getScheduleOfDay";
 import tv from "../images/tv.png";
 import styled from "styled-components";
 import { Header } from "./Header";
@@ -18,8 +15,6 @@ const Container = styled("div")`
   flex-direction: column;
   justify-content: space-between;
 `;
-
-
 
 const Wrapper = styled("div")`
   display: flex;
@@ -43,11 +38,8 @@ const StyledImage = styled("img")`
 export const MainScreen: FC = () => {
   const history = useHistory();
 
-  const dispatcn = useDispatch();
-
   const goToSchedule = (date: Date) => {
-    dispatcn(getScheduleOfDay(date));
-
+    localStorage.setItem("date", String(date));
     history.push("/schedule");
   };
 
