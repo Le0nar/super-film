@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { ISchedule } from "../../interfaces/ISchedule";
@@ -25,7 +25,7 @@ export const ScheduleScreen: FC = () => {
   const [schedule, setSchedule] = useState<ISchedule[]>([]);
   const date = localStorage.getItem("date") ?? "";
   const history = useHistory();
-  const currentDate = new Date(date);
+  const currentDate = useMemo(() => new Date(date), [date]);
 
   useEffect(() => {
     if (date) {
@@ -33,7 +33,7 @@ export const ScheduleScreen: FC = () => {
     } else {
       history.push("/");
     }
-  }, []);
+  }, [currentDate, date, history]);
 
   const [isRolled, setIsRolled] = useState(true);
 
