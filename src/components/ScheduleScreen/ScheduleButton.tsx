@@ -2,11 +2,12 @@ import { FC } from "react";
 import { IScheduleButton } from "../../interfaces/IScheduleButton";
 import arrow from "../../images/arrow.png";
 import styled from "styled-components";
+import { getCorrectDeclension } from "../../utils/getCorrectDeclension";
 
 const Wrapper = styled("div")`
   color: #999999;
   border: 1px solid #999999;
-  margin: 16px auto;
+  margin: 16px auto 32px;
   padding: 8px 0px 8px 16px;
   border-radius: 10px;
   display: flex;
@@ -27,8 +28,15 @@ export const ScheduleButton: FC<IScheduleButton> = ({
 }) => {
   const additionalQuantity = listLength - 3;
 
+  const rightDeclension = getCorrectDeclension(
+    additionalQuantity,
+    "сериал",
+    "сериала",
+    "сериалов"
+  );
+
   const content = isRolled
-    ? `Еще ${additionalQuantity} сериал `
+    ? `Еще ${additionalQuantity} ${rightDeclension} `
     : "Показать основные ";
 
   const arrowImg = (
