@@ -1,7 +1,8 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styled from "styled-components";
 
 import { IScheduleItem } from "../../interfaces/IScheduleItem";
+import { ImagePopup } from "../ImagePopup";
 
 const Box = styled("div")`
   display: flex;
@@ -46,23 +47,37 @@ export const ScheduleItem: FC<IScheduleItem> = ({
   season,
   number,
   image,
-  originalImage,
+  originalImage = "",
   airdate,
 }) => {
+  const [isPopupActive, setIsPopupActive] = useState(false);
   const year = airdate.slice(0, 4);
+
+  const openPopup = () => {
+    setIsPopupActive(true);
+  };
+
   return (
-    <Box>
-      <StyledImage src={image} alt={name} />
-      <BoxInfo>
-        <BoxInfoTitle>
-          <Title>{name}</Title>
-          <GreyText>{year}</GreyText>
-        </BoxInfoTitle>
-        <BoxInfoSeries>
-          <GreyText>Сезон: {season}</GreyText>
-          <EpisodeText>Эпизод: {number}</EpisodeText>
-        </BoxInfoSeries>
-      </BoxInfo>
-    </Box>
+    <>
+      <Box>
+        <StyledImage src={image} alt={name} onClick={openPopup} />
+        <BoxInfo>
+          <BoxInfoTitle>
+            <Title>{name}</Title>
+            <GreyText>{year}</GreyText>
+          </BoxInfoTitle>
+          <BoxInfoSeries>
+            <GreyText>Сезон: {season}</GreyText>
+            <EpisodeText>Эпизод: {number}</EpisodeText>
+          </BoxInfoSeries>
+        </BoxInfo>
+      </Box>
+      {isPopupActive && (
+        <ImagePopup
+          imageSrc={originalImage}
+          closePopup={() => setIsPopupActive(false)}
+        />
+      )}
+    </>
   );
 };
