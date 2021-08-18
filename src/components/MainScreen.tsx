@@ -27,7 +27,7 @@ const MainContent = styled("div")`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding-top: 30px;
+  padding-top: 8px;
 `;
 
 const StyledImage = styled("img")`
